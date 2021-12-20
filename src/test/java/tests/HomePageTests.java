@@ -34,4 +34,13 @@ public class HomePageTests extends TestBase{
         Assert.assertEquals(articleName,articlePage.getArticleTitle());
     }
 
+    @Test
+    public void openArticleBySearchAndSwipeUp(){
+        String articleName = "Java applet";
+        homePage.searchArticleBy("Java")
+                .openArticleByName(articleName);
+        articlePage.waitUntilPageIsLoaded();
+        Assert.assertEquals(articleName,articlePage.getArticleTitle());
+    }
+
 }

@@ -1,9 +1,9 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -19,6 +19,7 @@ public class PageBase {
     public void refreshPage(){
         driver.navigate().refresh();
     }
+    public void navigateBack(){ driver.navigate().back();}
     public void sleep(int timeMS){
         try {
             Thread.sleep(timeMS);
@@ -55,6 +56,30 @@ public class PageBase {
         String anotherHandle = getAnotherHandle();
         driver.close();
         driver.switchTo().window(anotherHandle);
+    }
+    public void swipeUp (){
+        sleep(2);
+        AppiumDriver appDriver = (AppiumDriver) driver;
+        TouchAction action = new TouchAction(appDriver);
+        Dimension size = driver.manage().window().getSize();
+        int x = (int) (size.width*0.5);
+        int y1 = (int) (size.height *0.7);
+        int y2 = (int) (size.getHeight()*0.3);
+
+        action.press(PointOption.point(x,y1))
+                .waitAction()
+                .moveTo(PointOption.point(x,y2))
+                .release()
+                .perform();
+    }
+
+    public void swipeUpToElement(By locator, int maxTime){
+        int counter = 0;
+        while (driver.findElements(locator).size()==0 && counter <maxTime)
+        {
+            this.swipeUp();
+            counter++;
+        }
     }
 
     public void waitUntilElementIsVisible(By locator, int time) {
