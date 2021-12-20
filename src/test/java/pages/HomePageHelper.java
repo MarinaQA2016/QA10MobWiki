@@ -40,7 +40,6 @@ public class HomePageHelper extends PageBase{
         return this;
     }
 
-
     public HomePageHelper openArticleByName(String name) {
         // ---- wait until the article with defined name is loaded and click on it ---
         String articleLocator = this.articleLocatorByNameXPath(name);
