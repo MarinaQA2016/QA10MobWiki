@@ -75,5 +75,32 @@ public class HomePageTests extends TestBase{
 
     }
 
+    @Test
+    public void openArticleBySearchRotation(){
+        String articleName = "JavaScript";
+        homePage.searchArticleBy("Java")
+                .openArticleByName(articleName);
+        articlePage.waitUntilPageIsLoaded();
+        // ---- rotate as landscape ----
+        articlePage.rotateLandscape();
+        articlePage.waitUntilPageIsLoaded();
+        Assert.assertEquals(articleName,articlePage.getArticleTitle());
+
+        // ----- rotate as portrait ------
+        articlePage.rotatePortrait();
+        articlePage.waitUntilPageIsLoaded();
+        Assert.assertEquals(articleName,articlePage.getArticleTitle());
+    }
+
+    @Test
+    public void openArticleBySearchGotoBackGround(){
+        String articleName = "JavaScript";
+        homePage.searchArticleBy("Java")
+                .openArticleByName(articleName);
+        articlePage.waitUntilPageIsLoaded();
+        articlePage.gotoBackGround(5);
+        articlePage.waitUntilPageIsLoaded();
+        Assert.assertEquals(articleName,articlePage.getArticleTitle());
+    }
 
 }

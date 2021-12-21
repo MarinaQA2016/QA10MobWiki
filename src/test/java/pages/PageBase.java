@@ -7,6 +7,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class PageBase {
@@ -94,6 +95,21 @@ public class PageBase {
             this.swipeUp();
             counter++;
         }
+    }
+
+    public void gotoBackGround(int sec) {
+        AppiumDriver appDriver = (AppiumDriver) driver;
+        appDriver.runAppInBackground(Duration.ofSeconds(sec));
+    }
+
+    public void rotatePortrait() {
+        AppiumDriver appDriver = (AppiumDriver) driver;
+        appDriver.rotate(ScreenOrientation.PORTRAIT);
+    }
+
+    public void rotateLandscape() {
+        AppiumDriver appDriver = (AppiumDriver) driver;
+        appDriver.rotate(ScreenOrientation.LANDSCAPE);
     }
 
     public void waitUntilElementIsVisible(By locator, int time) {

@@ -1,9 +1,13 @@
 package pages;
 
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.time.Duration;
 
 public class ArticlePageHelper extends PageBase{
     @FindBy (id = "org.wikipedia:id/view_page_title_text")
@@ -44,4 +48,5 @@ public class ArticlePageHelper extends PageBase{
         }
         return this;
     }
+
 }
