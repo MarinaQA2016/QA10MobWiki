@@ -8,6 +8,12 @@ import org.openqa.selenium.support.FindBy;
 public class ArticlePageHelper extends PageBase{
     @FindBy (id = "org.wikipedia:id/view_page_title_text")
     WebElement pageTitle;
+    @FindBy (className = "android.support.v7.app.ActionBar$Tab")
+    WebElement addToReadingListButton;
+    @FindBy (id = "org.wikipedia:id/onboarding_button")
+    WebElement gotItButton;
+    @FindBy (id = "android:id/button1")
+    WebElement okAddArticleToMyListButton;
 
     public ArticlePageHelper(WebDriver driver){
         this.driver = driver;
@@ -21,5 +27,21 @@ public class ArticlePageHelper extends PageBase{
 
     public String getArticleTitle(){
         return pageTitle.getText();
+    }
+
+    public ArticlePageHelper putToMyReadingListFirstly() {
+        waitUntilElementIsClickable(addToReadingListButton,10);
+        addToReadingListButton.click();
+        waitUntilElementIsClickable(gotItButton,15);
+        gotItButton.click();
+        waitUntilElementIsClickable(okAddArticleToMyListButton,10);
+        okAddArticleToMyListButton.click();
+        //waitUntilElementIsInVisible(okAddArticleToMyListButton,10);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

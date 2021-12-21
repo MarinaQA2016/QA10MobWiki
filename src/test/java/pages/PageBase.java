@@ -72,6 +72,20 @@ public class PageBase {
                 .release()
                 .perform();
     }
+    public void swipeFromLeftToRight (int y){
+        sleep(2);
+        AppiumDriver appDriver = (AppiumDriver) driver;
+        TouchAction action = new TouchAction(appDriver);
+        Dimension size = driver.manage().window().getSize();
+        int x1 = (int) (size.width*0.2);
+        int x2 = (int) (size.width*0.8);
+
+        action.press(PointOption.point(x1,y))
+                .waitAction()
+                .moveTo(PointOption.point(x2,y))
+                .release()
+                .perform();
+    }
 
     public void swipeUpToElement(By locator, int maxTime){
         int counter = 0;

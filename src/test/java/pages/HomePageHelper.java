@@ -14,15 +14,18 @@ public class HomePageHelper extends PageBase{
     WebElement searchFieldText;
     @FindBy(id = "org.wikipedia:id/search_src_text")
     WebElement searchFieldTextEntering;
+    @FindBy (xpath = "//*[@content-desc = 'My lists']")
+    WebElement openMyListsButton;
 
     public HomePageHelper (WebDriver driver){
         this.driver = driver;
     }
 
 
-    public void waitUntilPageIsLoaded() {
+    public HomePageHelper waitUntilPageIsLoaded() {
         //---- wait that the search element exists on the home page ----
         waitUntilElementIsClickable(searchFieldText, 20);
+        return this;
     }
 
     public String getSearchFieldText(){
@@ -52,5 +55,10 @@ public class HomePageHelper extends PageBase{
 
     public String articleLocatorByNameXPath(String name){
         return "//*[@resource-id = 'org.wikipedia:id/page_list_item_container'][.//*[@text='"+ name +"']]";
+    }
+
+    public void openMyLists() {
+        waitUntilElementIsClickable(openMyListsButton,10);
+        openMyListsButton.click();
     }
 }

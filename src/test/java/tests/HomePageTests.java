@@ -6,16 +6,22 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.ArticlePageHelper;
+import pages.CurrentReadingListHelper;
 import pages.HomePageHelper;
+import pages.MyListsHelper;
 
 public class HomePageTests extends TestBase{
     HomePageHelper homePage;
     ArticlePageHelper articlePage;
+    MyListsHelper myLists;
+    CurrentReadingListHelper currentReadingList;
 
     @BeforeMethod
     public void initTests(){
         homePage = PageFactory.initElements(driver, HomePageHelper.class);
         articlePage = PageFactory.initElements(driver, ArticlePageHelper.class);
+        myLists = PageFactory.initElements(driver, MyListsHelper.class);
+        currentReadingList = PageFactory.initElements(driver, CurrentReadingListHelper.class);
         homePage.waitUntilPageIsLoaded();
     }
 
@@ -42,5 +48,32 @@ public class HomePageTests extends TestBase{
         articlePage.waitUntilPageIsLoaded();
         Assert.assertEquals(articleName,articlePage.getArticleTitle());
     }
+    @Test
+    public void addArticleToMyReadingListAndDeleteIt(){
+        String articleName = "JavaScript";
+        homePage
+                .searchArticleBy("Java")
+                .openArticleByName(articleName);
+        articlePage
+                .waitUntilPageIsLoaded()
+                .putToMyReadingListFirstly()
+                .waitUntilPageIsLoaded();
+        articlePage.navigateBack();
+        homePage
+                .waitUntilPageIsLoaded()
+                .openMyLists();
+        myLists
+                .waitUntilPageIsLoaded()
+                .openFirstMyList();
+        currentReadingList
+                .waitUntilPageIsLoaded();
+        Assert.assertEquals(currentReadingList.getNameFirstArticle(), "JavaScript");
+        currentReadingList
+                .deleteArticle("JavaScript");
+
+        Assert.assertTrue(currentReadingList.isEmpty());
+
+    }
+
 
 }
